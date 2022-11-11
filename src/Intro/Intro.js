@@ -3,7 +3,9 @@ import "./Intro.css"
 
 const Intro = () =>{
     return(
-        <Link to={"/vraag/1"}>Start</Link>
+        <article className="intro">
+        <Link className="intro__button" to={"/vraag/1"}>Start</Link>
+        </article>
     )
 }
 

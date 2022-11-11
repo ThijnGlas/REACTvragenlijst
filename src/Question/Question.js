@@ -1,36 +1,43 @@
 import React from "react";
 import "./Question.css"
-import {withRouter} from "react-router"
+import { withRouter, Link } from "react-router-dom"
 
 class Question extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             rating: 0,
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
-        rating: this.props.rating
-    })
+            rating: this.props.rating
+        })
     }
 
     onStarClicked = (rating) => {
         this.setState({
             rating: rating,
-        })
+        }, () => {
+            this.props.onRate(this.state.rating, this.props.number);
+        }
+        )
     }
 
-    render(){
+    render() {
+        let nextButtonToBeRendered = <Link className="question__button" to={this.props.next}>Volgende</Link>
+        if (this.props.last === true) {
+            nextButtonToBeRendered = <Link onClick={this.props.onLast} className="question__button" to={this.props.next}>Volgende</Link>
+        }
         let starsArray = [];
-        for(let i = 1; i <= this.state.rating;  i++){
-            starsArray.push(<i onClick={() => this.onStarClicked(i)} className="question__star fa-solid fa-star"></i>)
+        for (let i = 1; i <= this.state.rating; i++) {
+            starsArray.push(<i key={i} onClick={() => this.onStarClicked(i)} className="question__star fa-solid fa-star"></i>)
         }
 
-        for(let i = this.state.rating +1; i <= 5; i++){
-            starsArray.push(<i onClick={() => this.onStarClicked(i)} className="question__star fa-regular fa-star"></i>)
+        for (let i = this.state.rating + 1; i <= 5; i++) {
+            starsArray.push(<i key={i} onClick={() => this.onStarClicked(i)} className="question__star fa-regular fa-star"></i>)
         }
 
         return (
@@ -45,8 +52,8 @@ class Question extends React.Component {
                     </div>
                 </section>
                 <footer className="question__footer">
-                    <button className="question__button">Vorige</button>
-                    <button className="question__button">Volgende</button>
+                    <Link className="question__button" to={this.props.previous}>Vorige</Link>
+                    {nextButtonToBeRendered}
                 </footer>
             </article>
         );

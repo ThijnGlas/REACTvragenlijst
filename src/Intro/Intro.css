@@ -1,0 +1,15 @@
+.intro {
+    width: 60rem;
+    height: 40rem;
+    background: #eee;
+    border-radius: 3rem;
+    box-shadow: inset 0 -0.5rem 1rem 0.1rem rgba(21, 21, 21, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro__link{
+    font-size: 150%;
+    text-decoration: none;
+}
